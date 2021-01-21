@@ -11,9 +11,9 @@ changing the volume involves a walk to the study (and the shortest
 route involves sliding away the TV), an inconvenient interruption.
 
 A straightforward solution should be to connect our (Windows)
-laptop(s) to the (Linux) desktop using Remote Desktop. GNOME Remote
-Desktop should enable just that, but it is, well, _pre-alpha_; not yet
-ready for use in my desktop environment (FC33).
+laptop(s) to the (Linux) desktop using Remote Desktop. [GNOME Remote
+Desktop][gnome-rdp] should enable just that, but it is, well,
+_pre-alpha_; not yet ready for use in my desktop environment (FC33).
 
 _Here's the steps to make this work!_
 
@@ -44,7 +44,7 @@ temporarilly - [created self-signed certificates](keys.md)
 `server.crt` and `server.key`. 
 
 Getting things to actually work creates a minor security issue:
-because the _user_ runs `gnome-remote-desktop` (and not `root`), 
+because the _user_ runs `gnome-remote-desktop` (and not _root_), 
 the file storing the server's _private_ key must be user-readable:
 
     sudo chown $USER /etc/pki/tls/private/server.key
@@ -90,8 +90,13 @@ in the Sharing dialogue.
 ### Next steps
 
 Use-case watching online films from the couch has been solved!
-Unfortunately, only mouse input works - I have yet to find out how to
-fix keyboard input. _Stay tuned..._
+Unfortunately, only mouse input works - after puzzling on some
+warnings and errors, RedHat's Jonas Ådahl confirmed that 
+[keyboard input is incomplete][discussion].
+
+_Stay tuned..._
 
 [grd-settings-c]:	https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/blob/master/src/grd-settings.c	"grd-settings.c"
 [repo]:				https://github.com/arjenpdevries/RDP													"arjenpdevries/RDP"
+[gnome-rdp]:		https://wiki.gnome.org/Projects/Mutter/RemoteDesktop									"gnome-remote-desktop"
+[discussion]:		https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/issues/26#note_1012586			"GNOME RDP developers"
