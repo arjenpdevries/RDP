@@ -64,8 +64,7 @@ When trying to connect to GNOME Remote Desktop you see the following
 errors in the log (`journalctl -rx`): 
 `gnome-remote-de[XXX]: Couldn't retrieve RDP username: Credentials not set`.
 
-The problem is that 
-[`grd-settings.c`][grd-settings-c]
+The problem is that `grd-settings.c` [(code)][grd-settings-c]
 looks for user credentials using `libsecret`; the VNC password in
 `org.gnome.RemoteDesktop.VncPassword` is set correctly using the
 Screen Sharing dialogue mentioned above, but the option to control
