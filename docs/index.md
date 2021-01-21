@@ -88,5 +88,6 @@ issue the following command:
 The password should correspond to the one given under Access Options
 in the Sharing dialogue.
 
-grd-settings-c:	https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/blob/master/src/grd-settings.c	"grd-settings.c"
-repo:			https://github.com/arjenpdevries/RDP													"arjenpdevries/RDP"
+
+[grd-settings-c]:	https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/blob/master/src/grd-settings.c	"grd-settings.c"
+[repo]:				https://github.com/arjenpdevries/RDP													"arjenpdevries/RDP"
