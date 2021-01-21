@@ -88,6 +88,11 @@ issue the following command:
 The password should correspond to the one given under Access Options
 in the Sharing dialogue.
 
+### Next steps
+
+Use-case watching online films from the couch has been solved!
+Unfortunately, only mouse input works - I have yet to find out how to
+fix keyboard input. _Stay tuned..._
 
 [grd-settings-c]:	https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/blob/master/src/grd-settings.c	"grd-settings.c"
 [repo]:				https://github.com/arjenpdevries/RDP													"arjenpdevries/RDP"
