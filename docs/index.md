@@ -1,37 +1,58 @@
-## Welcome to GitHub Pages
+## RDP at Home
 
-You can use the [editor on GitHub](https://github.com/arjenpdevries/RDP/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+We want to operate firefox in the study (connected to the TV with an HDMI cable)...
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+_... from the couch in the living room._
 
-### Markdown
+This would let us pause a movie or adapt the volume without walking to the study.
+A straightforward solution should be to connect our (Windows) laptop(s) to the 
+desktop with Remote Desktop.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+GNOME Remote Desktop should do what we want, but is, well, pre-alpha;
+it is not yet completely integrated in the desktop environment (FC33).
 
-```markdown
-Syntax highlighted code block
+### Sharing settings
 
-# Header 1
-## Header 2
-### Header 3
+You can turn GNOME Remote Desktop on/off through the Screen Sharing dialogue: 
+Settings / Sharing / Screen Sharing. Switching the slider is equivalent to 
+issuing `systemctl --user start|stop gnome-remote-desktop.service`.
 
-- Bulleted
-- List
+Choose a password, pick one that is different from your normal login password.
 
-1. Numbered
-2. List
+### TLS settings
 
-**Bold** and _Italic_ and `Code` text
+I did not find out whether it is the Windows RDP client that forces the use of TLS, 
+or it is a requirement in the GNOME Remote Desktop server, but you need a key for the server.
+I have - temporarilly - created self-signed certificates `server.crt` and `server.key`.
 
-[Link](url) and ![Image](src)
-```
+You either use `dconf-editor` to set these values, or use the CLI:
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+    gsettings set org.gnome.desktop.remote-desktop.rdp tls-cert  '/etc/pki/tls/certs/server.crt'
+    gsettings set org.gnome.desktop.remote-desktop.rdp tls-key   '/etc/pki/tls/private/server.key'
+    gsettings set org.gnome.desktop.remote-desktop.rdp view-only "false"
 
-### Jekyll Themes
+The current way to get it to work creates a minor security issue, because it is the user who runs
+`gnome-remote-desktop` and not `root`; the file storing the server's private key must be 
+user-readable:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/arjenpdevries/RDP/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+    sudo chown $USER /etc/pki/tls/private/server.key
 
-### Support or Contact
+### RDP credentials
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Once I got this far, I discovered that the UI/UX for controlling access is unfinished.
+
+When trying to connect to GNOME Remote Desktop you see the following errors (`journalctl -rx`):
+`gnome-remote-de[XXX]: Couldn't retrieve RDP username: Credentials not set`.
+
+The problem is that 
+[`grd-settings.c`](https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/blob/master/src/grd-settings.c)
+looks for user credentials using `libsecret`; the VNC password in `org.gnome.RemoteDesktop.VncPassword` 
+is set correctly using the Screen Sharing dialogue mentioned above, but the option to control 
+`org.gnome.RemoteDesktop.RdpCredentials` is still missing from the UI.
+
+Initially, I attempted to mimic the VNC values using `seahorse` and/or `secret-tool`, but to no avail.
+After trying many different failed methods to get the credentials into the user environment in the right way,
+I ended up reverse engineering the solution from the code and writing a simple _yet-not-robust_ python script 
+to create these values correctly (the server code is still fragile and crashes upon incorrect values).
+
+You find the scripts in this repository.
