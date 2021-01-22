@@ -94,7 +94,11 @@ Unfortunately, only mouse input works - after puzzling on some
 warnings and errors, RedHat's Jonas Ådahl confirmed that 
 [keyboard input is incomplete][discussion].
 
-_Stay tuned..._
+So... what if I _really_ need my keyboard?
+
+Walk over to the study, you lazy b@st@rd!
+Oh, and, GNOME Remote Desktop works fine with VNC clients too!
+_Only slower._
 
 [grd-settings-c]:	https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/blob/master/src/grd-settings.c	"grd-settings.c"
 [repo]:				https://github.com/arjenpdevries/RDP													"arjenpdevries/RDP"
