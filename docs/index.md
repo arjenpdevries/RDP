@@ -87,6 +87,11 @@ issue the following command:
 The password should correspond to the one given under Access Options
 in the Sharing dialogue.
 
+_Update:_
+
+Three months after writing this, the GNOME team has provided a similar
+workaround at [this GNOME snippets][gnome-workaround].
+
 ### Next steps
 
 Use-case watching online films from the couch has been solved!
@@ -102,5 +107,6 @@ _Only slower._
 
 [grd-settings-c]:	https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/blob/master/src/grd-settings.c	"grd-settings.c"
 [repo]:				https://github.com/arjenpdevries/RDP													"arjenpdevries/RDP"
+[gnome-workaround]:	https://gitlab.gnome.org/-/snippets/1778	"GNOME provided workaround"
 [gnome-rdp]:		https://wiki.gnome.org/Projects/Mutter/RemoteDesktop									"gnome-remote-desktop"
 [discussion]:		https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/issues/26#note_1012586			"GNOME RDP developers"
